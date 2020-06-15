@@ -51,13 +51,35 @@ class ViewMainPage {
         let el = this.myf.getElementById(id);
         return el.checked;
     }
+    //Devuelve el tipo de elemento del, bien sea un switch o un boton de filtro    
+    getTipoElemento(id) {
+        if (id.startsWith("dev_")) {
+            return 'switch';
+        }
+        if (id.startsWith("btn_filter")) {
+            return 'btn_filter';
+        }
+        return 'otro';
+    }
+    getTipoFiltro(id) {
+        return id.substr(-1);
+    }
 }
 class Main {
     handleEvent(evt) {
-        let sw = this.myf.getElementByEvent(evt);
-        console.log("click en device:" + sw.id);
-        let data = { "id": sw.id, "state": this.view.getSwitchStateById(sw.id) };
-        this.myf.requestPOST("devices", data, this);
+        let elem = this.myf.getElementByEvent(evt);
+        //Para los id del tipo dev_XXX son los switchs
+        //Para los id del tipo btn_filter son los filtros de dispositivos
+        let tipo = this.view.getTipoElemento(elem.id);
+        if (tipo == 'switch') {
+            console.log("click en device:" + elem.id);
+            let data = { "id": elem.id, "state": this.view.getSwitchStateById(elem.id) };
+            this.myf.requestPOST("devices", data, this);
+        }
+        else if (tipo == 'btn_filter') {
+            let opcionfiltro = this.view.getTipoFiltro(elem.id);
+            this.myf.requestGET("devices?filter=" + opcionfiltro, this);
+        }
     }
     handleGETResponse(status, response) {
         if (status == 200) {
@@ -66,8 +88,9 @@ class Main {
             console.log(data);
             this.view.showDevices(data);
             for (let i in data) {
-                let sw = this.myf.getElementById("dev_" + data[i].id);
-                sw.addEventListener("click", this);
+                //let sw:HTMLElement = this.myf.getElementById("dev_"+data[i].id);
+                //sw.addEventListener("click",this);     
+                this.myf.configClick("dev_" + data[i].id, this);
             }
         }
     }
@@ -79,7 +102,12 @@ class Main {
     main() {
         this.myf = new MyFramework();
         this.view = new ViewMainPage(this.myf);
+        //this.myf.requestGET("devices?filter=0",this);
         this.myf.requestGET("devices", this);
+        //Agrego metodo configClick en el framework para simplificar la configuraicon y reusar codigo   
+        this.myf.configClick('btn_filter_todo_0', this);
+        this.myf.configClick('btn_filter_lampara_1', this);
+        this.myf.configClick('btn_filter_persiana_2', this);
     }
 }
 window.onload = () => {

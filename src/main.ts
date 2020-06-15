@@ -70,6 +70,22 @@ class ViewMainPage
         let el:HTMLInputElement = <HTMLInputElement>this.myf.getElementById(id);       
         return el.checked;
     }
+
+    //Devuelve el tipo de elemento del, bien sea un switch o un boton de filtro    
+    getTipoElemento(id:string):string {
+        if (id.startsWith("dev_")) {
+            return 'switch';
+        }
+        if (id.startsWith("btn_filter")) {
+            return 'btn_filter';
+        }
+        return 'otro';
+    }
+
+    getTipoFiltro(id:string):string {
+        return id.substr(-1);
+    }
+
 }
 class Main implements GETResponseListener, EventListenerObject, POSTResponseListener
 { 
@@ -78,11 +94,25 @@ class Main implements GETResponseListener, EventListenerObject, POSTResponseList
 
     handleEvent(evt:Event):void
     {
-        let sw: HTMLElement = this.myf.getElementByEvent(evt);
-        console.log("click en device:"+sw.id);
+        let elem: HTMLElement = this.myf.getElementByEvent(evt);
+        //Para los id del tipo dev_XXX son los switchs
+        //Para los id del tipo btn_filter son los filtros de dispositivos
+        let tipo = this.view.getTipoElemento(elem.id);
 
-        let data:object = {"id":sw.id,"state":this.view.getSwitchStateById(sw.id)};
-        this.myf.requestPOST("devices",data,this);
+        if (tipo == 'switch') {
+            console.log("click en device:"+elem.id);
+
+            let data:object = {"id":elem.id,"state":this.view.getSwitchStateById(elem.id)};
+            this.myf.requestPOST("devices",data,this);
+        }
+        else if (tipo == 'btn_filter') {
+            let opcionfiltro = this.view.getTipoFiltro(elem.id);
+            this.myf.requestGET("devices?filter="+opcionfiltro,this);
+        }
+
+
+
+
     }
 
     handleGETResponse(status:number,response:string):void{
@@ -95,8 +125,9 @@ class Main implements GETResponseListener, EventListenerObject, POSTResponseList
           
           for(let i in data)
           {
-              let sw:HTMLElement = this.myf.getElementById("dev_"+data[i].id);
-              sw.addEventListener("click",this);                
+              //let sw:HTMLElement = this.myf.getElementById("dev_"+data[i].id);
+              //sw.addEventListener("click",this);     
+              this.myf.configClick("dev_"+data[i].id,this);           
           }
       }
     }
@@ -114,7 +145,13 @@ class Main implements GETResponseListener, EventListenerObject, POSTResponseList
 
       this.view = new ViewMainPage(this.myf);
 
+      //this.myf.requestGET("devices?filter=0",this);
       this.myf.requestGET("devices",this);
+      //Agrego metodo configClick en el framework para simplificar la configuraicon y reusar codigo   
+      this.myf.configClick('btn_filter_todo_0',this);
+      this.myf.configClick('btn_filter_lampara_1',this);
+      this.myf.configClick('btn_filter_persiana_2',this);
+
     } 
 } 
  

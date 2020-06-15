@@ -9,6 +9,10 @@ class MyFramework {
         el = document.getElementById(id);
         return el;
     }
+    configClick(id, listener) {
+        let el = this.getElementById(id);
+        el.addEventListener('click', listener);
+    }
     getElementByEvent(evt) {
         return evt.target;
     }
