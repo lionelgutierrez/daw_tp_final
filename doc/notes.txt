@@ -1,0 +1,43 @@
+PASOS PARA LA EJECUCION
+
+1- #docker stop $(docker ps -a -q)
+2 -#docker network ls | grep mysql-net 
+    -> si no hay resultados hacer #docker network create --driver bridge mysql-net
+
+3- # ./start_mysql.sh mysql-net "$PWD"/db                       -- Levanta la DB
+4- # ./run_phpadmin.sh mysql-net mysql-server 8085              -- Levanta PHPMyAdmin ​ http://localhost:8085​
+5- # ./serve_node_app_net.sh "$PWD" ws/index.js 8000 mysql-net  -- Levanta la App ​ http://localhost:8000
+
+
+INFORMACION DE CADA CONTENEDOR - ARGUMENTOS
+
+● MySQL:  ./start_mysql.sh mysql-net "$PWD"/db 
+
+○ Nombre de la imagen:  mysql:5.7
+○ Nombre contenedor:    mysql-server
+○ Network:              mysql-net ### Primer parametro del script
+○ Variables de entorno: MYSQL_ROOT_PASSWORD=userpass (password de root)
+○ Puertos:              3306
+○ Volumenes:            "path segundo parametro"/data: directorio donde se aloja la DB
+                        "path segundo parametro"/dumps: informacion para generacion de DB inicial
+
+
+● Node App:   ./serve_node_app_net.sh "$PWD" ws/index.js 8000 mysql-net
+
+○ Nombre de la imagen:  abassi/nodejs-server:10.0-dev
+○ Nombre contenedor:    nodejs-container
+○ Network:              mysql-net ### Cuarto parametro del script
+○ Variables de entorno: N/A
+○ Puertos:              Bindea el puerto 3000 del contenedor con el puerto indicado en el tercer parametro (8000)
+○ Volumenes:            Compartir el directorio con el código fuente en el host (primer parametro)
+                        al directorio /home/node/app del contenedor.
+○ nodemon:              herramienta que permite redeploy ante cambios en el codigo. Escucha cambios segun segundo parametro                        
+
+● PHPMyAdmin:  ./run_phpadmin.sh mysql-net mysql-server 8085 
+
+○ Nombre de la imagen:  phpmyadmin/phpmyadmin
+○ Nombre contenedor:    phpadmin
+○ Network:              mysql-net ### Primer parametro del script
+○ Variables de entorno: PMA_HOST=mysql-server ## Segundo parametro del script. se le pasa como variable de entorno el nombre del contenedor de mysql.
+○ Puertos:              Bindea el puerto 80 del contenedor con el puerto indicado en el tercer parametro (8005)
+○ Volumenes:            N/A
