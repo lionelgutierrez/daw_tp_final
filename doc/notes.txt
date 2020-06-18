@@ -41,3 +41,11 @@ INFORMACION DE CADA CONTENEDOR - ARGUMENTOS
 ○ Variables de entorno: PMA_HOST=mysql-server ## Segundo parametro del script. se le pasa como variable de entorno el nombre del contenedor de mysql.
 ○ Puertos:              Bindea el puerto 80 del contenedor con el puerto indicado en el tercer parametro (8005)
 ○ Volumenes:            N/A
+
+
+INFORMACION para README
+Servicio para generar badges para documentacion:
+
+https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg
+
+Por ejemplo: https://img.shields.io/badge/License-GPL-green.svg
