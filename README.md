@@ -30,7 +30,7 @@ docker-compose up
 
 Si la ejecución no generó ningún inconveniente, en ​[http://localhost:8000](http://localhost:8000) se debería ver la
 aplicación corriendo y en [http://localhost:8085](http://localhost:8085) se debería poder acceder a PHPMyAdmin.
-Para detener toda la aplicación ejecutar el comando siguiente.
+<BR>Para detener toda la aplicación ejecutar el comando siguiente.
 
 ```sh
 docker-compose down
@@ -67,7 +67,7 @@ A continuación, se detalla la estructura de la aplicación y las configuracione
     .
     ├── css                          # Archivos css de materialize para los estilos del front-end   
     ├── db                           # Directorio para la base de datos del proyecto
-    ├── doc                          # Carpeta con notas y configuraciones, comandos rapidos
+    ├── doc                          # Carpeta con notas y configuraciones, comandos rápidos
     ├── images                       # Imágenes del proyecto y para la documentación
     ├── js                           # Código Javascript del front-end proyecto, lógica de negocio y presentación de la SPA
     ├── src                          # Código fuente Typescript del proyecto, que se compila a los archivos js de la carpeta /js
