@@ -133,11 +133,11 @@ Este paso levanta PHPMyAdmin, para lo cual le indicamos la red a utilizar, el co
 ```sh
   ./serve_node_app_net.sh "$PWD" ws/index.js 8000 mysql-net  
 ```
-Este paso levanta la aplicación, para lo cuál se utiliza un servidor express. Le indicamos el directorio base a servir (PWD) y cual es el archivo o script inicial de la aplicación (ws/index.js). Además, le indicamos el puerto en el que se levantará la aplicación y la red a utilizar para comunicarse con la base de datos. Podemos acceder a la aplicación desde: http://localhost:8000
+Este paso levanta la aplicación, para lo cual se utiliza un servidor express. Le indicamos el directorio base a servir (PWD) y cuál es el archivo o script inicial de la aplicación (ws/index.js). Además, le indicamos el puerto en el que se levantará la aplicación y la red a utilizar para comunicarse con la base de datos. Podemos acceder a la aplicación desde: http://localhost:8000
 
 ## Imágenes docker utilizadas - configuraciones
 
-Para las imágenes de docker utilizadas en la solución se utilizan los siguiente parámetros de configuración:
+Para las imágenes de docker utilizadas en la solución se utilizan los siguientes parámetros de configuración:
 
 ### MySQL:  
 
@@ -149,7 +149,7 @@ Para las imágenes de docker utilizadas en la solución se utilizan los siguient
 - Variables de entorno: MYSQL_ROOT_PASSWORD=userpass (password de root)
 - Puertos:              3306
 - Volúmenes:            PARAM2/data: directorio donde se aloja la DB
-                        PARAM2/dumps: informacion para generación de DB inicial
+                        PARAM2/dumps: información para generación de DB inicial
 
 
 ### PHPMyAdmin:  
