@@ -8,13 +8,14 @@ Autor: Lionel Gutiérrez - 2020
 [![Ask Me Anything !](images/Ask-me-anything.svg)](#)
 [![Typescript](images/typescipt-blue.svg)](#)
 [![Javascript](images/Javascript-blue.svg)](#)
+[![Node.JS](images/Node.JS-blue.svg)](#)
 [![License](images/License-GPL.svg)](#)
 
 
 # Introducción
 El proyecto es el trabajo final con el cual se concluye la materia de Desarrollo de aplicaciones Web, de la carrera de Especializacion en Internet de las Cosas(CEIot), dictada por la FIUBA.
-El objetivo del mismo es simluar un conjunto de dispositivos de IOT de un hogar, los cuales pueden apagarse y prenderse desde la interfaz grafica de la aplicacion. Adicionalmente, se puede filtrar el conjunto de dispositivos por su tipo (Lamparas/Persianas/Todos).
-El proyecto se implementa como una SPA, utilizando typescript para el desarrollo del front-end y node.js para el back-end.
+<BR>El objetivo del mismo es simluar un conjunto de dispositivos de IOT de un hogar, los cuales pueden apagarse y prenderse desde la interfaz grafica de la aplicacion. Adicionalmente, se puede filtrar el conjunto de dispositivos por su tipo (Lamparas/Persianas/Todos).
+<BR>El proyecto se implementa como una SPA, utilizando typescript para el desarrollo del front-end y node.js para el back-end.
 Se utilizarán contenedores y la herramienta docker-compose para el despliege de la misma.
 A continuación, se muestra la pantalla principal del sistema:
 
@@ -58,13 +59,13 @@ De este modo, por ejemplo, al modificar el switch de la lampara 1, estaremos apa
 ![Alt text](/images/lampara1Off.png?raw=true "Lampara 1 Off")
 
 # Detalles técnicos de la aplicación
-A continuacion se detalla la estructura de la aplicacion y las configuraciones utilizadas, junto a los lenguajes y herramientas utilziadas en el proyecto
+A continuacion se detalla la estructura de la aplicacion y las configuraciones utilizadas, junto a los lenguajes y herramientas utilizadas en el proyecto.
 
 ## Estructura de Directorios de la aplicación
 
 
     .
-    ├── css                          # Archivos css de materialize    
+    ├── css                          # Archivos css de materialize para los estilos del front-end   
     ├── db                           # Directorio para la base de datos del proyecto
     ├── doc                          # Carpeta con notas y configuraciones, comandos rapidos
     ├── images                       # Imagenes del proyecto y para la documentacion
@@ -80,17 +81,14 @@ A continuacion se detalla la estructura de la aplicacion y las configuraciones u
 ## Funcionamiento / capas de la aplicación
 
 La aplicación se implementa como una SPA.
-Se cuenta con un front-end, encargado de gestionar una lista de dispositivos y de brindar la funcionalidad de modificar el estado de los dispositivos.
-El front-end se implementa con un framework y un conjunto de clases en Javascript, cuyo código se encuentra dentro de la carpeta JS. Para obtener el listado de dispositivos y modificar el estado de los mismos, el sistema cuenta con un back-end, implementado como una API Rest en Node.JS.
-La implementación del back-end se encuentra dentro de la carpeta WS, implementada en el archivo index.js.
-La información de los dispositivos se almacena en una base de datos mysql. La misma se accede desde el back-end, para lo cual estan configurados los datos de conexión dentro de la carpeta WS/mysql, dentro del archivo index.js
-
-
+<BR>Se cuenta con un front-end, encargado de gestionar una lista de dispositivos y de brindar la funcionalidad de modificar el estado de los dispositivos. El front-end se implementa como un framework y un conjunto de clases en Javascript, cuyo código se encuentra dentro de la carpeta JS. 
+<BR>Para obtener el listado de dispositivos y modificar el estado de los mismos, el sistema cuenta con un back-end, implementado como una API Rest en Node.JS. El mismo se encuentra dentro de la carpeta WS, implementada en el archivo index.js.
+<BR>La información de los dispositivos se almacena en una base de datos mysql. La misma se accede desde el back-end, para lo cual estan configurados los datos de conexión dentro de la carpeta WS/mysql, dentro del archivo index.js
 
 
 ## Configuracion de docker-compose
 
-Para los detalles de configuracion particulares, referirse al archivo docker-compose.yml
+Para los detalles de configuracion particulares, referirse al archivo [docker-compose.yml](docker-compose.yml) 
 
 La herramienta levanta 3 contenedores y un servicio de red entre los servicios para la ejecución:
 
