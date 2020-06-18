@@ -145,11 +145,11 @@ Para las imagenes de docker utilizadas en la solución se utilizan los siguiente
     <BR>Por ejemplo:    ./start_mysql.sh mysql-net "$PWD"/db 
 * Nombre de la imagen:  mysql:5.7
 * Nombre contenedor:    mysql-server
-* Network:              PARMA1 (mysql-net)
+* Network:              PARAM1 (mysql-net)
 * Variables de entorno: MYSQL_ROOT_PASSWORD=userpass (password de root)
 * Puertos:              3306
-* Volumenes:            PARMA2/data: directorio donde se aloja la DB
-                        PARMA2/dumps: informacion para generacion de DB inicial
+* Volumenes:            PARAM2/data: directorio donde se aloja la DB
+                        PARAM2/dumps: informacion para generacion de DB inicial
 
 
 ### PHPMyAdmin:  
@@ -158,17 +158,18 @@ Para las imagenes de docker utilizadas en la solución se utilizan los siguiente
     <BR>Por ejemplo:    ./run_phpadmin.sh mysql-net mysql-server 8085 
 * Nombre de la imagen:  phpmyadmin/phpmyadmin
 * Nombre contenedor:    phpadmin
-* Network:              PARMA1 (mysql-net)
+* Network:              PARAM1 (mysql-net)
 * Variables de entorno: PMA_HOST=PARAM2(mysql-server)). se le pasa como variable de entorno el nombre del contenedor de mysql.
 * Puertos:              Bindea el puerto 80 del contenedor con el puerto indicado en PARAM3 (8005)
 * Volumenes:            N/A
 
 ### Node App:   
+
 * Modo de invoaciónn:   ./serve_node_app_net.sh PARAM1 PARAM2 PARAM3 PARAM4
     <BR>Por ejemplo:    ./serve_node_app_net.sh "$PWD" ws/index.js 8000 mysql-net
 * Nombre de la imagen:  abassi/nodejs-server:10.0-dev
 * Nombre contenedor:    nodejs-container
-* Network:              PARMA4 (mysql-net)
+* Network:              PARAM4 (mysql-net)
 * Variables de entorno: N/A
 * Puertos:              Bindea el puerto 3000 del contenedor con el puerto indicado en el PARAM3 (8000)
 * Volumenes:            Compartir el directorio con el código fuente en el host (PARAM1)
